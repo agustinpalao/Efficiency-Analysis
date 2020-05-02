@@ -100,7 +100,7 @@ Sorghum <- readRDS("Sorghum.rds")
     
     
        
-###   MERGING SIAP WITH FIRA DATABASE
+###   MERGING SIAP WITH GUARANTEE DATABASE
   
   SFA_Maize<-merge(SFA_Maize, CGS_Corn, by.x = c("ID_Mun","Municipio","AñoAgricola" ),
                    by.y = c("ID_Mun", "Mun", "Year"),all.x = TRUE)
@@ -118,9 +118,7 @@ Sorghum <- readRDS("Sorghum.rds")
  
   
   #Labor
- # setwd("C:/Users/Agustin/Dropbox/Dissertation/Data/INEGI")
-  setwd("C:/Users/axp121731/Dropbox/Dissertation/Data/INEGI")
-  #setwd("C:/Users/casa/Dropbox/Dissertation/Data/INEGI")
+
   Labor<-read.csv("labor_mun_final.csv")
   Labor<-reshape(Labor, varying = list(names(Labor)[2:11]), v.names = "Workers",
                     idvar = c("ID_Mun"), timevar="year", times=2004:2013,  direction = "long")
@@ -421,11 +419,7 @@ Sorghum <- readRDS("Sorghum.rds")
     require(xtable)
     xtable(GeneralStat)
     
-  ##### Export to excell to work in some editings.
-    library(xlsx)
-    
-    write.xlsx (GeneralStat,"C:/Users/Agustin/Dropbox/Dissertation/Data/RWD/StatsTable.xlsx")
- 
+  
     ###### PART FOUR  ############################
     #######  ADDITIONAL USEFUL VARIABLES FOR PANEL DATA SETS ########  
     ## 1.- Mean-scaled quantities
@@ -505,9 +499,6 @@ Sorghum <- readRDS("Sorghum.rds")
     # Dat$lLab<- log(Dat$lab)
     # Dat$ltk<- log(Dat$tk)
     
-    
-    setwd("C:/Users/axp121731/Dropbox/Dissertation/Data/RWD")
-    # setwd("C:/Users/casa/Dropbox/Dissertation/Data/RWD")
     saveRDS(Cornf, file="SFA_Corn.rds")
     saveRDS(Beanf, file="SFA_Bean.rds")
     saveRDS(Wheatf, file="SFA_Wheat.rds")
@@ -520,40 +511,7 @@ Sorghum <- readRDS("Sorghum.rds")
     saveRDS(pSorghumf, file="pSFA_Sorghum.rds")
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+   
 ###### PART FOUR  ############################
 #######  ADDITIONAL USEFUL VARIABLES AND PANEL DATA STRUCTURE  ########    
 
@@ -650,9 +608,7 @@ Sorghum <- readRDS("Sorghum.rds")
   # head(attr(pDat_outlier, "index"))
   # head(as.matrix(pDat_outlier$PROD))
   
-    
-  setwd("C:/Users/axp121731/Dropbox/Dissertation/Data/RWD")
-  # setwd("C:/Users/casa/Dropbox/Dissertation/Data/RWD")
+
   saveRDS(SFA_Maize, file="SFA_Corn.rds")
   saveRDS(SFA_Bean, file="SFA_Bean.rds")
   saveRDS(SFA_Wheat, file="SFA_Wheat.rds")
