@@ -2,17 +2,8 @@
 ##############S T O C H A S T I C  F R O N T I E R  A N A L Y S I S ###################
 ################### D A T A   P R E P A R A T I O N ##############################
 
-#SET THE WORKING DIRECTORY
-# vAIO Laptop
-setwd("C:/Users/Agustin/Dropbox/Dissertation/Data/RWD")
-# Home Desktop
-#setwd("C:/Users/casa/Dropbox/Dissertation/Data/RWD")
-# School Desktop
-
-setwd("C:/Users/axp121731/Dropbox/Dissertation/Data/RWD")
 require(foreign)
 require(dplyr)
-#install.packages("plyr")
 require(plyr)
 
 
@@ -34,21 +25,21 @@ Sorghum <- readRDS("Sorghum.rds")
 
 ##First from SIAP create the Dependent Variable: TONNES OF PRODUCE PER MUNICIPALITY-YEAR
 
-  SFA_Maize<- ddply(Maize, .(ID_Mun, Municipio, AñoAgricola), summarize, Prod=sum(Produccion))
-  SFA_Bean<- ddply(Bean, .(ID_Mun, Municipio, AñoAgricola), summarize, Prod=sum(Produccion))
-  SFA_Wheat<- ddply(Wheat, .(ID_Mun, Municipio, AñoAgricola), summarize, Prod=sum(Produccion))
-  SFA_Sorghum<- ddply(Sorghum, .(ID_Mun, Municipio, AñoAgricola), summarize, Prod=sum(Produccion))
+  SFA_Maize<- ddply(Maize, .(ID_Mun, Municipio, AÃ±oAgricola), summarize, Prod=sum(Produccion))
+  SFA_Bean<- ddply(Bean, .(ID_Mun, Municipio, AÃ±oAgricola), summarize, Prod=sum(Produccion))
+  SFA_Wheat<- ddply(Wheat, .(ID_Mun, Municipio, AÃ±oAgricola), summarize, Prod=sum(Produccion))
+  SFA_Sorghum<- ddply(Sorghum, .(ID_Mun, Municipio, AÃ±oAgricola), summarize, Prod=sum(Produccion))
   
   
   ### Start creating Independent variables: (1) PLANTED AREA IN HECTARES: 1.1 DRY-LAND, 1.2 IRRIGATED-LAND  
     ### CORN 
   
-    General_land<-ddply(Maize, .(ID_Mun, Municipio, AñoAgricola, Modalidad), summarize, Area=sum(Sembrada))
+    General_land<-ddply(Maize, .(ID_Mun, Municipio, AÃ±oAgricola, Modalidad), summarize, Area=sum(Sembrada))
     DryLand<-subset(General_land, General_land$Modalidad=="TEMPORAL")
     Irrigation<-subset(General_land, General_land$Modalidad=="RIEGO")
   
-    SFA_Maize<-merge(SFA_Maize, DryLand, by=c("ID_Mun","Municipio","AñoAgricola" ),all.x = TRUE)
-    SFA_Maize<-merge(SFA_Maize, Irrigation, by=c("ID_Mun","Municipio","AñoAgricola" ),all.x = TRUE)
+    SFA_Maize<-merge(SFA_Maize, DryLand, by=c("ID_Mun","Municipio","AÃ±oAgricola" ),all.x = TRUE)
+    SFA_Maize<-merge(SFA_Maize, Irrigation, by=c("ID_Mun","Municipio","AÃ±oAgricola" ),all.x = TRUE)
     SFA_Maize$Modalidad.x<-NULL
     SFA_Maize$Modalidad.y<-NULL
     names(SFA_Maize)[names(SFA_Maize) == 'Area.x'] <- 'DryLand'
@@ -59,12 +50,12 @@ Sorghum <- readRDS("Sorghum.rds")
     SFA_Maize$PctgIrr<-SFA_Maize$Irrigation/SFA_Maize$TotLand
     
     #### BEAN
-    General_land<-ddply(Bean, .(ID_Mun, Municipio, AñoAgricola, Modalidad), summarize, Area=sum(Sembrada))
+    General_land<-ddply(Bean, .(ID_Mun, Municipio, AÃ±oAgricola, Modalidad), summarize, Area=sum(Sembrada))
     DryLand<-subset(General_land, General_land$Modalidad=="TEMPORAL")
     Irrigation<-subset(General_land, General_land$Modalidad=="RIEGO")
     
-    SFA_Bean<-merge(SFA_Bean, DryLand, by=c("ID_Mun","Municipio","AñoAgricola" ),all.x = TRUE)
-    SFA_Bean<-merge(SFA_Bean, Irrigation, by=c("ID_Mun","Municipio","AñoAgricola" ),all.x = TRUE)
+    SFA_Bean<-merge(SFA_Bean, DryLand, by=c("ID_Mun","Municipio","AÃ±oAgricola" ),all.x = TRUE)
+    SFA_Bean<-merge(SFA_Bean, Irrigation, by=c("ID_Mun","Municipio","AÃ±oAgricola" ),all.x = TRUE)
     SFA_Bean$Modalidad.x<-NULL
     SFA_Bean$Modalidad.y<-NULL
     names(SFA_Bean)[names(SFA_Bean) == 'Area.x'] <- 'DryLand'
@@ -75,12 +66,12 @@ Sorghum <- readRDS("Sorghum.rds")
     SFA_Bean$PctgIrr<-SFA_Bean$Irrigation/SFA_Bean$TotLand
     
     ### WHEAT
-    General_land<-ddply(Wheat, .(ID_Mun, Municipio, AñoAgricola, Modalidad), summarize, Area=sum(Sembrada))
+    General_land<-ddply(Wheat, .(ID_Mun, Municipio, AÃ±oAgricola, Modalidad), summarize, Area=sum(Sembrada))
     DryLand<-subset(General_land, General_land$Modalidad=="TEMPORAL")
     Irrigation<-subset(General_land, General_land$Modalidad=="RIEGO")
     
-    SFA_Wheat<-merge(SFA_Wheat, DryLand, by=c("ID_Mun","Municipio","AñoAgricola" ),all.x = TRUE)
-    SFA_Wheat<-merge(SFA_Wheat, Irrigation, by=c("ID_Mun","Municipio","AñoAgricola" ),all.x = TRUE)
+    SFA_Wheat<-merge(SFA_Wheat, DryLand, by=c("ID_Mun","Municipio","AÃ±oAgricola" ),all.x = TRUE)
+    SFA_Wheat<-merge(SFA_Wheat, Irrigation, by=c("ID_Mun","Municipio","AÃ±oAgricola" ),all.x = TRUE)
     SFA_Wheat$Modalidad.x<-NULL
     SFA_Wheat$Modalidad.y<-NULL
     names(SFA_Wheat)[names(SFA_Wheat) == 'Area.x'] <- 'DryLand'
@@ -91,12 +82,12 @@ Sorghum <- readRDS("Sorghum.rds")
     SFA_Wheat$PctgIrr<-SFA_Wheat$Irrigation/SFA_Wheat$TotLand
     
     ### SORGHUM
-    General_land<-ddply(Sorghum, .(ID_Mun, Municipio, AñoAgricola, Modalidad), summarize, Area=sum(Sembrada))
+    General_land<-ddply(Sorghum, .(ID_Mun, Municipio, AÃ±oAgricola, Modalidad), summarize, Area=sum(Sembrada))
     DryLand<-subset(General_land, General_land$Modalidad=="TEMPORAL")
     Irrigation<-subset(General_land, General_land$Modalidad=="RIEGO")
     
-    SFA_Sorghum<-merge(SFA_Sorghum, DryLand, by=c("ID_Mun","Municipio","AñoAgricola" ),all.x = TRUE)
-    SFA_Sorghum<-merge(SFA_Sorghum, Irrigation, by=c("ID_Mun","Municipio","AñoAgricola" ),all.x = TRUE)
+    SFA_Sorghum<-merge(SFA_Sorghum, DryLand, by=c("ID_Mun","Municipio","AÃ±oAgricola" ),all.x = TRUE)
+    SFA_Sorghum<-merge(SFA_Sorghum, Irrigation, by=c("ID_Mun","Municipio","AÃ±oAgricola" ),all.x = TRUE)
     SFA_Sorghum$Modalidad.x<-NULL
     SFA_Sorghum$Modalidad.y<-NULL
     names(SFA_Sorghum)[names(SFA_Sorghum) == 'Area.x'] <- 'DryLand'
@@ -111,13 +102,13 @@ Sorghum <- readRDS("Sorghum.rds")
        
 ###   MERGING SIAP WITH FIRA DATABASE
   
-  SFA_Maize<-merge(SFA_Maize, CGS_Corn, by.x = c("ID_Mun","Municipio","AñoAgricola" ),
+  SFA_Maize<-merge(SFA_Maize, CGS_Corn, by.x = c("ID_Mun","Municipio","AÃ±oAgricola" ),
                    by.y = c("ID_Mun", "Mun", "Year"),all.x = TRUE)
-  SFA_Bean<-merge(SFA_Bean, CGS_Bean, by.x = c("ID_Mun","Municipio","AñoAgricola" ),
+  SFA_Bean<-merge(SFA_Bean, CGS_Bean, by.x = c("ID_Mun","Municipio","AÃ±oAgricola" ),
                    by.y = c("ID_Mun", "Mun", "Year"),all.x = TRUE)
-  SFA_Wheat<-merge(SFA_Wheat, CGS_Wheat, by.x = c("ID_Mun","Municipio","AñoAgricola" ),
+  SFA_Wheat<-merge(SFA_Wheat, CGS_Wheat, by.x = c("ID_Mun","Municipio","AÃ±oAgricola" ),
                    by.y = c("ID_Mun", "Mun", "Year"),all.x = TRUE)
-  SFA_Sorghum<-merge(SFA_Sorghum, CGS_Sorghum, by.x = c("ID_Mun","Municipio","AñoAgricola" ),
+  SFA_Sorghum<-merge(SFA_Sorghum, CGS_Sorghum, by.x = c("ID_Mun","Municipio","AÃ±oAgricola" ),
                    by.y = c("ID_Mun", "Mun", "Year"),all.x = TRUE)
   
   
@@ -147,13 +138,13 @@ Sorghum <- readRDS("Sorghum.rds")
   
   #Add Labor to SFA database
   SFA_Maize<-merge(SFA_Maize, Labor[ , c("ID_Mun","year", "LabCorn")], 
-                    by.x = c("ID_Mun","AñoAgricola"), by.y = c("ID_Mun", "year"), all.x=TRUE)
+                    by.x = c("ID_Mun","AÃ±oAgricola"), by.y = c("ID_Mun", "year"), all.x=TRUE)
   SFA_Bean<-merge(SFA_Bean, Labor[ , c("ID_Mun","year", "LabBean")], 
-                   by.x = c("ID_Mun","AñoAgricola"), by.y = c("ID_Mun", "year"), all.x=TRUE)
+                   by.x = c("ID_Mun","AÃ±oAgricola"), by.y = c("ID_Mun", "year"), all.x=TRUE)
   SFA_Wheat<-merge(SFA_Wheat, Labor[ , c("ID_Mun","year", "LabWheat")], 
-                   by.x = c("ID_Mun","AñoAgricola"), by.y = c("ID_Mun", "year"), all.x=TRUE)
+                   by.x = c("ID_Mun","AÃ±oAgricola"), by.y = c("ID_Mun", "year"), all.x=TRUE)
   SFA_Sorghum<-merge(SFA_Sorghum, Labor[ , c("ID_Mun","year", "LabSorghum")], 
-                   by.x = c("ID_Mun","AñoAgricola"), by.y = c("ID_Mun", "year"), all.x=TRUE)
+                   by.x = c("ID_Mun","AÃ±oAgricola"), by.y = c("ID_Mun", "year"), all.x=TRUE)
   
   #Put zeroes in all na
   
